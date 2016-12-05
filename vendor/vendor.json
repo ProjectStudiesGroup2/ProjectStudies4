@@ -1,13 +1,13 @@
 {
-	"comment": "",
-	"ignore": "test",
-	"package": [
-		{
-			"checksumSHA1": "/Fq5jtSZk7ShUvTASDWPs5sioGo=",
-			"path": "github.com/ant0ine/go-json-rest/rest",
-			"revision": "ce4b71cdf7ba29ef443d704bd923f5bbf281ee30",
-			"revisionTime": "2016-12-01T03:48:30Z"
-		}
-	],
-	"rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4"
+    "package": [{
+        "checksumSHA1": "/Fq5jtSZk7ShUvTASDWPs5sioGo=",
+        "path": "github.com/ant0ine/go-json-rest/rest",
+        "revision": "ce4b71cdf7ba29ef443d704bd923f5bbf281ee30",
+        "revisionTime": "2016-12-01T03:48:30Z"
+    }],
+    "rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4",
+    "heroku": {
+        "install": ["./..."],
+        "goVersion": "go1.6"
+    },
 }
