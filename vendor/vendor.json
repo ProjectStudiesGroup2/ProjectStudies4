@@ -8,6 +8,6 @@
     "rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4",
     "heroku": {
         "install": ["./..."],
-        "goVersion": "go1.6"
+        "goVersion": "go1.7"
     },
 }
