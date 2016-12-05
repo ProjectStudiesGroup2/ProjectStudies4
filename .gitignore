@@ -23,6 +23,13 @@ _testmain.go
 *.test
 *.prof
 
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# External packages folder
+vendor/
+
+
 # Logs
 logs
 *.log
@@ -70,10 +77,3 @@ jspm_packages
 
 # Yarn Integrity file
 .yarn-integrity
-
-# production
-build
-
-# misc
-.DS_Store
-.env
