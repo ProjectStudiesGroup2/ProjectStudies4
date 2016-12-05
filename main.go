@@ -2,13 +2,20 @@ package main
 
 import (
     "fmt"
-    "github.com/ant0ine/go-json-rest/rest"
     "log"
     "net/http"
+    "os"
     "sync"
+
+    "github.com/ant0ine/go-json-rest/rest"
 )
 
 func main() {
+    port := os.Getenv("PORT")
+    // port := "8080"
+    if port == "" {
+        log.Fatal("$PORT must be set")
+    }
 
     products := Products{
         Store: map[string]*Product{},
@@ -27,7 +34,7 @@ func main() {
         log.Fatal(err)
     }
     api.SetApp(router)
-    log.Fatal(http.ListenAndServe(":8080", api.MakeHandler()))
+    log.Fatal(http.ListenAndServe(":" + port, api.MakeHandler()))
 }
 
 type Product struct {
