@@ -5,9 +5,5 @@
         "revision": "ce4b71cdf7ba29ef443d704bd923f5bbf281ee30",
         "revisionTime": "2016-12-01T03:48:30Z"
     }],
-    "rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4",
-    "heroku": {
-        "install": ["./..."],
-        "goVersion": "go1.7"
-    },
+    "rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4"
 }
