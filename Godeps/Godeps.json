@@ -1,0 +1,20 @@
+{
+	"ImportPath": "github.com/ProjectStudiesGroup2/ProjectStudies4",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v75",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/ant0ine/go-json-rest/rest",
+			"Comment": "v3.3.1-16-gce4b71c",
+			"Rev": "ce4b71cdf7ba29ef443d704bd923f5bbf281ee30"
+		},
+		{
+			"ImportPath": "github.com/ant0ine/go-json-rest/rest/trie",
+			"Comment": "v3.3.1-16-gce4b71c",
+			"Rev": "ce4b71cdf7ba29ef443d704bd923f5bbf281ee30"
+		}
+	]
+}
