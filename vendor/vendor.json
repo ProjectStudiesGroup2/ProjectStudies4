@@ -1,7 +1,5 @@
 {
 	"rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4",
-	"heroku.goVersion": "go1.7",
-	"heroku.install": ["."],
 	"package": [
 		{
 			"checksumSHA1": "/Fq5jtSZk7ShUvTASDWPs5sioGo=",
