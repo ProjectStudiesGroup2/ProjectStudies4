@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -44,8 +43,8 @@ func main() {
 }
 
 type Product struct {
-	Id        int64     `json:"id"`
-	Name      string    `sql:"size:256" json:"name"`
+	Id   int64  `json:"id"`
+	Name string `sql:"size:256" json:"name"`
 }
 
 type Impl struct {
@@ -66,15 +65,15 @@ func (i *Impl) InitSchema() {
 }
 
 func (i *Impl) GetAllProducts(w rest.ResponseWriter, r *rest.Request) {
-    products := []Product{}
-    i.DB.Find(&products)
-    w.WriteJson(&products)
+	products := []Product{}
+	i.DB.Find(&products)
+	w.WriteJson(&products)
 }
 
 func (i *Impl) GetProduct(w rest.ResponseWriter, r *rest.Request) {
 	id := r.PathParam("id")
 	product := Product{}
-	if i.DB.First(&product, id).Error == nil {
+	if i.DB.First(&product, id).Error != nil {
 		rest.NotFound(w, r)
 		return
 	}
@@ -88,9 +87,9 @@ func (i *Impl) PostProduct(w rest.ResponseWriter, r *rest.Request) {
 		return
 	}
 	if err := i.DB.Save(&product).Error; err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.WriteJson(&product)
 }
 
@@ -104,14 +103,11 @@ func (i *Impl) PutProduct(w rest.ResponseWriter, r *rest.Request) {
 	}
 
 	updated := Product{}
-	if err := r.DecodeJsonPayload(&product); err != nil {
+	if err := r.DecodeJsonPayload(&updated); err != nil {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	fmt.Println("    \\/")
-	fmt.Println(updated.Name)
-	fmt.Println("    /\\")
 	product.Name = updated.Name
 
 	if err := i.DB.Save(&product).Error; err != nil {
