@@ -8,6 +8,8 @@ import (
 	"sync"
 
 	"github.com/ant0ine/go-json-rest/rest"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/jinzhu/gorm"
 )
 
 func main() {
@@ -15,6 +17,14 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
+
+	db, err := gorm.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	db.CreateTable(&Product{})
 
 	products := Products{
 		Store: map[string]*Product{},
