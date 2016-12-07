@@ -5,11 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"sync"
 
 	"github.com/ant0ine/go-json-rest/rest"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 func main() {
@@ -18,27 +17,19 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	db, err := gorm.Open("postgres", os.Getenv("DATABASE_URL"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	db.CreateTable(&Product{})
-
-	products := Products{
-		Store: map[string]*Product{},
-	}
+	i := Impl{}
+	i.InitDB()
+	i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 
 	router, err := rest.MakeRouter(
-		rest.Get("/products", products.GetAllProducts),
-		rest.Post("/products", products.PostProduct),
-		rest.Get("/products/:id", products.GetProduct),
-		rest.Put("/products/:id", products.PutProduct),
-		rest.Delete("/products/:id", products.DeleteProduct),
+		rest.Get("/products", i.GetAllProducts),
+		rest.Post("/products", i.PostProduct),
+		rest.Get("/products/:id", i.GetProduct),
+		rest.Put("/products/:id", i.PutProduct),
+		rest.Delete("/products/:id", i.DeleteProduct),
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -53,86 +44,93 @@ func main() {
 }
 
 type Product struct {
-	Id    string
-	Name  string
-	Price float64
-	Desc  string
-	Stock int
+	Id        int64     `json:"id"`
+	Name      string    `sql:"size:256" json:"name"`
 }
 
-type Products struct {
-	sync.RWMutex
-	Store map[string]*Product
+type Impl struct {
+	DB *gorm.DB
 }
 
-func (p *Products) GetAllProducts(w rest.ResponseWriter, r *rest.Request) {
-	p.RLock()
-	products := make([]Product, len(p.Store))
-	i := 0
-	for _, product := range p.Store {
-		products[i] = *product
-		i++
+func (i *Impl) InitDB() {
+	var err error
+	i.DB, err = gorm.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatalf("Got error when connect database, the error is '%v'", err)
 	}
-	p.RUnlock()
-	w.WriteJson(&products)
+	i.DB.LogMode(true)
 }
 
-func (p *Products) GetProduct(w rest.ResponseWriter, r *rest.Request) {
+func (i *Impl) InitSchema() {
+	i.DB.AutoMigrate(&Product{})
+}
+
+func (i *Impl) GetAllProducts(w rest.ResponseWriter, r *rest.Request) {
+    products := []Product{}
+    i.DB.Find(&products)
+    w.WriteJson(&products)
+}
+
+func (i *Impl) GetProduct(w rest.ResponseWriter, r *rest.Request) {
 	id := r.PathParam("id")
-	p.RLock()
-	var product *Product
-	if p.Store[id] != nil {
-		product = &Product{}
-		*product = *p.Store[id]
-	}
-	p.RUnlock()
-	if product == nil {
+	product := Product{}
+	if i.DB.First(&product, id).Error == nil {
 		rest.NotFound(w, r)
 		return
 	}
-	w.WriteJson(product)
-}
-
-func (p *Products) PostProduct(w rest.ResponseWriter, r *rest.Request) {
-	product := Product{}
-	err := r.DecodeJsonPayload(&product)
-	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	p.Lock()
-	id := fmt.Sprintf("%d", len(p.Store)) // stupid
-	product.Id = id
-	p.Store[id] = &product
-	p.Unlock()
 	w.WriteJson(&product)
 }
 
-func (p *Products) PutProduct(w rest.ResponseWriter, r *rest.Request) {
+func (i *Impl) PostProduct(w rest.ResponseWriter, r *rest.Request) {
+	product := Product{}
+	if err := r.DecodeJsonPayload(&product); err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if err := i.DB.Save(&product).Error; err != nil {
+        rest.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+	w.WriteJson(&product)
+}
+
+func (i *Impl) PutProduct(w rest.ResponseWriter, r *rest.Request) {
+
 	id := r.PathParam("id")
-	p.Lock()
-	if p.Store[id] == nil {
+	product := Product{}
+	if i.DB.First(&product, id).Error != nil {
 		rest.NotFound(w, r)
-		p.Unlock()
 		return
 	}
-	product := Product{}
-	err := r.DecodeJsonPayload(&product)
-	if err != nil {
+
+	updated := Product{}
+	if err := r.DecodeJsonPayload(&product); err != nil {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		p.Unlock()
 		return
 	}
-	product.Id = id
-	p.Store[id] = &product
-	p.Unlock()
+
+	fmt.Println("    \\/")
+	fmt.Println(updated.Name)
+	fmt.Println("    /\\")
+	product.Name = updated.Name
+
+	if err := i.DB.Save(&product).Error; err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.WriteJson(&product)
 }
 
-func (p *Products) DeleteProduct(w rest.ResponseWriter, r *rest.Request) {
+func (i *Impl) DeleteProduct(w rest.ResponseWriter, r *rest.Request) {
 	id := r.PathParam("id")
-	p.Lock()
-	delete(p.Store, id)
-	p.Unlock()
+	product := Product{}
+	if i.DB.First(&product, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+	if err := i.DB.Delete(&product).Error; err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 }
