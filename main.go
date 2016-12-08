@@ -17,7 +17,7 @@ func main() {
 
 	i := Impl{}
 	i.InitDB()
-	i.InitSchema()
+	// i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
@@ -25,11 +25,21 @@ func main() {
 	router, err := rest.MakeRouter(
 		rest.Get("/categories", i.GetAllCategories),
 		rest.Post("/categories", i.PostCategory),
-		// rest.Get("/products", i.GetAllProducts),
-		// rest.Post("/products", i.PostProduct),
-		// rest.Get("/products/:id", i.GetProduct),
-		// rest.Put("/products/:id", i.PutProduct),
-		// rest.Delete("/products/:id", i.DeleteProduct),
+		// rest.Get("/categories/:cat_id", i.GetTypesInCategory),
+		// rest.Put("/categories/:cat_id", i.PutCategory),
+		rest.Post("/categories/:cat_id", i.PostTypeInCategory),
+		// rest.Delete("/categories/:cat_id", i.DeleteCategory),
+
+		// rest.Get("/types/:type_id", i.GetProductsInType),
+		// rest.Put("/types/:type_id", i.PutType),
+		// rest.Post("/types/:type_id", i.PostProductInType),
+		// rest.Delete("/types/:type_id", i.DeleteType),
+
+		rest.Get("/brands", i.GetAllBrands),
+		rest.Post("/brands", i.PostBrand),
+		rest.Get("/brands/:brand_id", i.GetBrand),
+		rest.Put("/brands/:brand_id", i.PutBrand),
+		rest.Delete("/brands/:brand_id", i.DeleteBrand),
 	)
 	if err != nil {
 		log.Fatal(err)

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/ant0ine/go-json-rest/rest"
 	"net/http"
 )
@@ -21,7 +20,6 @@ func (i *Impl) PostCategory(w rest.ResponseWriter, r *rest.Request) {
 		return
 	}
 
-	fmt.Println(new)
 	category.CategoryName = new.CategoryName
 
 	if err := i.DB.Save(&category).Error; err != nil {

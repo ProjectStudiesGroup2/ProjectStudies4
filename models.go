@@ -7,8 +7,8 @@ type Address struct {
 }
 
 type Brand struct {
-	BrandID   uint   `gorm:"primary_key"`
-	BrandName string `gorm:"not null;unique"`
+	BrandID   uint   `gorm:"primary_key" json:"brand_id"`
+	BrandName string `gorm:"not null;unique" json:"brand_name"`
 }
 
 type Category struct {
@@ -68,9 +68,9 @@ type ShippingAddress struct {
 }
 
 type Type struct {
-	TypeID     uint   `gorm:"primary_key"`
-	TypeName   string `gorm:"not null;unique"`
-	CategoryID uint   ``
+	TypeID     uint   `gorm:"primary_key" json:"type_id"`
+	TypeName   string `gorm:"not null;unique" json:"type_name"`
+	CategoryID uint   `json:"cat_id"`
 }
 
 type User struct {
