@@ -17,7 +17,7 @@ func main() {
 
 	i := Impl{}
 	i.InitDB()
-	// i.InitSchema()
+	i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
