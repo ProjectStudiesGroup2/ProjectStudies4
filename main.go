@@ -1,13 +1,12 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"log"
+	"net/http"
+	"os"
 )
 
 func main() {
@@ -18,17 +17,19 @@ func main() {
 
 	i := Impl{}
 	i.InitDB()
-	i.InitSchema()
+	// i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 
 	router, err := rest.MakeRouter(
-		rest.Get("/products", i.GetAllProducts),
-		rest.Post("/products", i.PostProduct),
-		rest.Get("/products/:id", i.GetProduct),
-		rest.Put("/products/:id", i.PutProduct),
-		rest.Delete("/products/:id", i.DeleteProduct),
+		rest.Get("/categories", i.GetAllCategories),
+		rest.Post("/categories", i.PostCategory),
+		// rest.Get("/products", i.GetAllProducts),
+		// rest.Post("/products", i.PostProduct),
+		// rest.Get("/products/:id", i.GetProduct),
+		// rest.Put("/products/:id", i.PutProduct),
+		// rest.Delete("/products/:id", i.DeleteProduct),
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -42,11 +43,6 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
-type Product struct {
-	Id   int64  `json:"id"`
-	Name string `sql:"size:256" json:"name"`
-}
-
 type Impl struct {
 	DB *gorm.DB
 }
@@ -55,78 +51,85 @@ func (i *Impl) InitDB() {
 	var err error
 	i.DB, err = gorm.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
-		log.Fatalf("Got error when connect database, the error is '%v'", err)
+		log.Fatalf("Got error when connect database: %v", err)
 	}
 	i.DB.LogMode(true)
 }
 
 func (i *Impl) InitSchema() {
-	i.DB.AutoMigrate(&Product{})
-}
-
-func (i *Impl) GetAllProducts(w rest.ResponseWriter, r *rest.Request) {
-	products := []Product{}
-	i.DB.Find(&products)
-	w.WriteJson(&products)
-}
-
-func (i *Impl) GetProduct(w rest.ResponseWriter, r *rest.Request) {
-	id := r.PathParam("id")
-	product := Product{}
-	if i.DB.First(&product, id).Error != nil {
-		rest.NotFound(w, r)
-		return
+	if i.DB.HasTable(&ShippingAddress{}) {
+		i.DB.DropTable(&ShippingAddress{})
 	}
-	w.WriteJson(&product)
-}
-
-func (i *Impl) PostProduct(w rest.ResponseWriter, r *rest.Request) {
-	product := Product{}
-	if err := r.DecodeJsonPayload(&product); err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if i.DB.HasTable(&Rewiew{}) {
+		i.DB.DropTable(&Rewiew{})
 	}
-	if err := i.DB.Save(&product).Error; err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if i.DB.HasTable(&IsInOrder{}) {
+		i.DB.DropTable(&IsInOrder{})
 	}
-	w.WriteJson(&product)
-}
-
-func (i *Impl) PutProduct(w rest.ResponseWriter, r *rest.Request) {
-
-	id := r.PathParam("id")
-	product := Product{}
-	if i.DB.First(&product, id).Error != nil {
-		rest.NotFound(w, r)
-		return
+	if i.DB.HasTable(&Order{}) {
+		i.DB.DropTable(&Order{})
+	}
+	if i.DB.HasTable(&IsInCart{}) {
+		i.DB.DropTable(&IsInCart{})
+	}
+	if i.DB.HasTable(&User{}) {
+		i.DB.DropTable(&User{})
+	}
+	if i.DB.HasTable(&Product{}) {
+		i.DB.DropTable(&Product{})
+	}
+	if i.DB.HasTable(&Type{}) {
+		i.DB.DropTable(&Type{})
+	}
+	if i.DB.HasTable(&Features{}) {
+		i.DB.DropTable(&Features{})
+	}
+	if i.DB.HasTable(&Category{}) {
+		i.DB.DropTable(&Category{})
+	}
+	if i.DB.HasTable(&Brand{}) {
+		i.DB.DropTable(&Brand{})
+	}
+	if i.DB.HasTable(&Address{}) {
+		i.DB.DropTable(&Address{})
 	}
 
-	updated := Product{}
-	if err := r.DecodeJsonPayload(&updated); err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	i.DB.CreateTable(&Address{})
 
-	product.Name = updated.Name
+	i.DB.CreateTable(&Brand{})
 
-	if err := i.DB.Save(&product).Error; err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.WriteJson(&product)
-}
+	i.DB.CreateTable(&Category{})
 
-func (i *Impl) DeleteProduct(w rest.ResponseWriter, r *rest.Request) {
-	id := r.PathParam("id")
-	product := Product{}
-	if i.DB.First(&product, id).Error != nil {
-		rest.NotFound(w, r)
-		return
-	}
-	if err := i.DB.Delete(&product).Error; err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.WriteHeader(http.StatusOK)
+	i.DB.CreateTable(&Features{})
+
+	i.DB.CreateTable(&Type{})
+	i.DB.Model(&Type{}).AddForeignKey("category_id", "categories(category_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Product{})
+	i.DB.Model(&Product{}).AddForeignKey("brand_id", "brands(brand_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Product{}).AddForeignKey("type_id", "types(type_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Product{}).AddForeignKey("features_id", "features(features_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&User{})
+	i.DB.Model(&User{}).AddForeignKey("address_id", "addresses(address_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&IsInCart{})
+	i.DB.Model(&IsInCart{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&IsInCart{}).AddForeignKey("product_id", "products(product_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Order{})
+	i.DB.Model(&Order{}).AddForeignKey("user_id", "users(user_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Order{}).AddForeignKey("address_id", "addresses(address_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&IsInOrder{})
+	i.DB.Model(&IsInOrder{}).AddForeignKey("product_id", "products(product_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&IsInOrder{}).AddForeignKey("order_id", "orders(order_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Rewiew{})
+	i.DB.Model(&Rewiew{}).AddForeignKey("product_id", "products(product_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&Rewiew{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&ShippingAddress{})
+	i.DB.Model(&ShippingAddress{}).AddForeignKey("address_id", "addresses(address_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&ShippingAddress{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
 }
