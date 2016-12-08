@@ -17,17 +17,19 @@ func main() {
 
 	i := Impl{}
 	i.InitDB()
-	i.InitSchema()
+	// i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 
 	router, err := rest.MakeRouter(
-		rest.Get("/products", i.GetAllProducts),
-		rest.Post("/products", i.PostProduct),
-		rest.Get("/products/:id", i.GetProduct),
-		rest.Put("/products/:id", i.PutProduct),
-		rest.Delete("/products/:id", i.DeleteProduct),
+		rest.Get("/categories", i.GetAllCategories),
+		rest.Post("/categories", i.PostCategory),
+		// rest.Get("/products", i.GetAllProducts),
+		// rest.Post("/products", i.PostProduct),
+		// rest.Get("/products/:id", i.GetProduct),
+		// rest.Put("/products/:id", i.PutProduct),
+		// rest.Delete("/products/:id", i.DeleteProduct),
 	)
 	if err != nil {
 		log.Fatal(err)
