@@ -26,19 +26,22 @@ func (Features) TableName() string {
 }
 
 type IsInCart struct {
-	ProductID uint `gorm:"primary_key"`
-	UserID    uint `gorm:"primary_key"`
+	ProductID  uint `gorm:"primary_key"`
+	UserID     uint `gorm:"primary_key"`
+	CartAmount int  ``
 }
 
 type IsInOrder struct {
-	OrderID   uint `gorm:"primary_key"`
-	ProductID uint `gorm:"primary_key"`
+	OrderID     uint `gorm:"primary_key"`
+	ProductID   uint `gorm:"primary_key"`
+	OrderAmount int  ``
 }
 
 type Order struct {
-	UserID    uint   `gorm:"primary_key"`
-	AddressID uint   `gorm:"primary_key"`
-	Date      string `gorm:"primary_key;type:date"`
+	OrderID   uint   `gorm:"primary_key"`
+	UserID    uint   `gorm:"unique_index:idx_order"`
+	AddressID uint   `gorm:"unique_index:idx_order"`
+	Date      string `gorm:"unique_index:idx_order;type:date"`
 }
 
 type Product struct {

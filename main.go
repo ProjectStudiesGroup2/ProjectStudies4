@@ -49,7 +49,7 @@ func (i *Impl) InitDB() {
 	var err error
 	i.DB, err = gorm.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
-		log.Fatalf("Got error when connect database, the error is '%v'", err)
+		log.Fatalf("Got error when connect database: %v", err)
 	}
 	i.DB.LogMode(true)
 }
@@ -60,6 +60,15 @@ func (i *Impl) InitSchema() {
 	}
 	if i.DB.HasTable(&Rewiew{}) {
 		i.DB.DropTable(&Rewiew{})
+	}
+	if i.DB.HasTable(&IsInOrder{}) {
+		i.DB.DropTable(&IsInOrder{})
+	}
+	if i.DB.HasTable(&Order{}) {
+		i.DB.DropTable(&Order{})
+	}
+	if i.DB.HasTable(&IsInCart{}) {
+		i.DB.DropTable(&IsInCart{})
 	}
 	if i.DB.HasTable(&User{}) {
 		i.DB.DropTable(&User{})
@@ -83,8 +92,6 @@ func (i *Impl) InitSchema() {
 		i.DB.DropTable(&Address{})
 	}
 
-	// IsInCart IsInOrder Order
-
 	i.DB.CreateTable(&Address{})
 
 	i.DB.CreateTable(&Brand{})
@@ -104,11 +111,23 @@ func (i *Impl) InitSchema() {
 	i.DB.CreateTable(&User{})
 	i.DB.Model(&User{}).AddForeignKey("address_id", "addresses(address_id)", "RESTRICT", "RESTRICT")
 
+	i.DB.CreateTable(&IsInCart{})
+	i.DB.Model(&IsInCart{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&IsInCart{}).AddForeignKey("product_id", "products(product_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Order{})
+	i.DB.Model(&Order{}).AddForeignKey("user_id", "users(user_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Order{}).AddForeignKey("address_id", "addresses(address_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&IsInOrder{})
+	i.DB.Model(&IsInOrder{}).AddForeignKey("product_id", "products(product_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&IsInOrder{}).AddForeignKey("order_id", "orders(order_id)", "CASCADE", "CASCADE")
+
 	i.DB.CreateTable(&Rewiew{})
 	i.DB.Model(&Rewiew{}).AddForeignKey("product_id", "products(product_id)", "CASCADE", "CASCADE")
 	i.DB.Model(&Rewiew{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
 
 	i.DB.CreateTable(&ShippingAddress{})
-	i.DB.Model(&Rewiew{}).AddForeignKey("address_id", "addresses(address_id)", "CASCADE", "CASCADE")
-	i.DB.Model(&Rewiew{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&ShippingAddress{}).AddForeignKey("address_id", "addresses(address_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&ShippingAddress{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
 }
