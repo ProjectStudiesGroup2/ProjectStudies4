@@ -30,3 +30,40 @@ func (i *Impl) PostTypeInCategory(w rest.ResponseWriter, r *rest.Request) {
 	}
 	w.WriteJson(&aType)
 }
+
+func (i *Impl) PutType(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("brand_id")
+	aType := Type{}
+	if i.DB.First(&aType, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+
+	updated := Type{}
+	if err := r.DecodeJsonPayload(&updated); err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	aType.TypeName = updated.TypeName
+
+	if err := i.DB.Save(&aType).Error; err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteJson(&aType)
+}
+
+func (i *Impl) DeleteType(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("brand_id")
+	aType := Type{}
+	if i.DB.First(&aType, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+	if err := i.DB.Delete(&aType).Error; err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+}

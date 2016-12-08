@@ -28,3 +28,54 @@ func (i *Impl) PostCategory(w rest.ResponseWriter, r *rest.Request) {
 	}
 	w.WriteJson(&category)
 }
+
+func (i *Impl) GetTypesInCategory(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("cat_id")
+	category := Category{}
+	if i.DB.First(&category, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+
+	types := []Type{}
+	i.DB.Model(&category).Related(&types)
+	
+	w.WriteJson(&types)
+}
+
+func (i *Impl) PutCategory(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("cat_id")
+	category := Category{}
+	if i.DB.First(&category, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+
+	updated := Category{}
+	if err := r.DecodeJsonPayload(&updated); err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	category.CategoryName = updated.CategoryName
+
+	if err := i.DB.Save(&category).Error; err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteJson(&category)
+}
+
+func (i *Impl) DeleteCategory(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("cat_id")
+	category := Category{}
+	if i.DB.First(&category, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+	if err := i.DB.Delete(&category).Error; err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+}

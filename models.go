@@ -14,6 +14,7 @@ type Brand struct {
 type Category struct {
 	CategoryID   uint   `gorm:"primary_key" json:"cat_id"`
 	CategoryName string `gorm:"not null;unique" json:"cat_name"`
+	// Types        []Type `json:"-"`
 }
 
 type Features struct {
