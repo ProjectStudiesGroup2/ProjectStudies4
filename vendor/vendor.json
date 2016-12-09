@@ -1,6 +1,11 @@
 {
-	"rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4",
+	"comment": "",
+	"ignore": "",
 	"package": [
+		{
+			"path": "appengine/cloudsql",
+			"revision": ""
+		},
 		{
 			"checksumSHA1": "/Fq5jtSZk7ShUvTASDWPs5sioGo=",
 			"path": "github.com/ant0ine/go-json-rest/rest",
@@ -12,6 +17,109 @@
 			"path": "github.com/ant0ine/go-json-rest/rest/trie",
 			"revision": "ce4b71cdf7ba29ef443d704bd923f5bbf281ee30",
 			"revisionTime": "2016-12-01T03:48:30Z"
+		},
+		{
+			"checksumSHA1": "M9kYzCoDCaicsuB4g9Um9kyML1E=",
+			"path": "github.com/denisenkom/go-mssqldb",
+			"revision": "c72183de2d9a0412a613a20eb779c7c31933471e",
+			"revisionTime": "2016-12-06T04:10:52Z"
+		},
+		{
+			"checksumSHA1": "fyQ6D2LUvzhSnGxDSXPARWONPtg=",
+			"path": "github.com/erikstmartin/go-testdb",
+			"revision": "8d10e4a1bae52cd8b81ffdec3445890d6dccab3d",
+			"revisionTime": "2016-02-19T21:45:06Z"
+		},
+		{
+			"checksumSHA1": "NQYIoWBakYdfov9GUaSFoZDemr8=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "a0583e0143b1624142adab07e0e97fe106d99561",
+			"revisionTime": "2016-12-01T11:50:36Z"
+		},
+		{
+			"checksumSHA1": "Rt+eEcn1X7KKVGyulvEVN4R/68Y=",
+			"path": "github.com/jinzhu/gorm",
+			"revision": "0f2ceb5a775714a46bc344976324e3e439f8cdcc",
+			"revisionTime": "2016-12-05T10:30:07Z"
+		},
+		{
+			"checksumSHA1": "nzWh/S6C5wVr/WT88uO66Z32ycQ=",
+			"path": "github.com/jinzhu/gorm/dialects/mssql",
+			"revision": "0f2ceb5a775714a46bc344976324e3e439f8cdcc",
+			"revisionTime": "2016-12-05T10:30:07Z"
+		},
+		{
+			"checksumSHA1": "eECxSkwh0WmhLwaxHfkvcLOWS08=",
+			"path": "github.com/jinzhu/gorm/dialects/mysql",
+			"revision": "0f2ceb5a775714a46bc344976324e3e439f8cdcc",
+			"revisionTime": "2016-12-05T10:30:07Z"
+		},
+		{
+			"checksumSHA1": "QmQW8snORAputB7/1jFXpsOZa8A=",
+			"path": "github.com/jinzhu/gorm/dialects/postgres",
+			"revision": "0f2ceb5a775714a46bc344976324e3e439f8cdcc",
+			"revisionTime": "2016-12-05T10:30:07Z"
+		},
+		{
+			"checksumSHA1": "4VZ1gLZHMumRjV3fclS1aX8S1aQ=",
+			"path": "github.com/jinzhu/gorm/dialects/sqlite",
+			"revision": "0f2ceb5a775714a46bc344976324e3e439f8cdcc",
+			"revisionTime": "2016-12-05T10:30:07Z"
+		},
+		{
+			"checksumSHA1": "aa9zMiZLGUBrPxlZPH+mNQLd95Y=",
+			"path": "github.com/jinzhu/inflection",
+			"revision": "74387dc39a75e970e7a3ae6a3386b5bd2e5c5cff",
+			"revisionTime": "2016-08-17T01:46:01Z"
+		},
+		{
+			"checksumSHA1": "RJ8nL+T/3DUlhfnCf3N3TZ9B6IU=",
+			"path": "github.com/jinzhu/now",
+			"revision": "d9861969c7a7e84746d341c09020c2ef8a617f8f",
+			"revisionTime": "2016-06-12T09:26:03Z"
+		},
+		{
+			"checksumSHA1": "nQ1LgGMfbEff5JsbR80oPpyOAGY=",
+			"path": "github.com/lib/pq",
+			"revision": "4a82388ebc5138c8289fe9bc602cb0b3e32cd617",
+			"revisionTime": "2016-11-29T22:14:28Z"
+		},
+		{
+			"checksumSHA1": "fq3BmrkVu85eCtHFnngL8NIvjTo=",
+			"path": "github.com/lib/pq/hstore",
+			"revision": "4a82388ebc5138c8289fe9bc602cb0b3e32cd617",
+			"revisionTime": "2016-11-29T22:14:28Z"
+		},
+		{
+			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "4a82388ebc5138c8289fe9bc602cb0b3e32cd617",
+			"revisionTime": "2016-11-29T22:14:28Z"
+		},
+		{
+			"checksumSHA1": "GNIFfGWYSUEvzAZkrXz4PcRgMWk=",
+			"path": "github.com/mattn/go-sqlite3",
+			"revision": "8ecd77c707d698b39fbcf76e4e8d08f284c8307f",
+			"revisionTime": "2016-12-01T03:12:18Z"
+		},
+		{
+			"checksumSHA1": "vUcHzx0aV5Vid+r3FyGE1Y7QkHs=",
+			"path": "github.com/mattn/go-sqlite3/sqlite3_test",
+			"revision": "8ecd77c707d698b39fbcf76e4e8d08f284c8307f",
+			"revisionTime": "2016-12-01T03:12:18Z"
+		},
+		{
+			"checksumSHA1": "Tgu4aZokVOcn5MgZQbPauSBNVLw=",
+			"path": "golang.org/x/crypto/md4",
+			"revision": "3f77d695175f990a2967385c493939f380ee40a3",
+			"revisionTime": "2016-12-06T19:42:06Z"
+		},
+		{
+			"checksumSHA1": "88lxkrVVZyBqOBOFnNMBwEexiLY=",
+			"path": "golang.org/x/net/context",
+			"revision": "9773060888fba93b172cedcd70127db1ab739bd1",
+			"revisionTime": "2016-12-07T00:58:15Z"
 		}
-	]
+	],
+	"rootPath": "github.com/ProjectStudiesGroup2/ProjectStudies4"
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link, IndexLink } from 'react-router'
 import Nav from './navigation'
 
 const Container = (props) => (
@@ -14,4 +13,3 @@ const Container = (props) => (
 )
 
 export default Container
-  

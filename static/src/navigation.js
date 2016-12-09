@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, IndexLink } from 'react-router'
+import { IndexLink } from 'react-router'
 
 const Nav = () => (
   <div>
@@ -23,6 +23,12 @@ const Nav = () => (
               <li>
                 <IndexLink className="nav-tab" activeClassName='active' to='/about'>About</IndexLink>
               </li>
+              <li>
+                <IndexLink className="nav-tab" activeClassName='active' to='/filters'>Filters*</IndexLink>&nbsp;
+              </li>
+              <li>
+                <IndexLink className="nav-tab" activeClassName='active' to='/search'>Search</IndexLink>&nbsp;
+              </li>
             </ul>
             <ul className="nav navbar-nav navbar-right icon-pad">
               <li><a href="#">1</a></li>
@@ -35,3 +41,27 @@ const Nav = () => (
 )
 
 export default Nav
+
+// var Nav = React.createClass ({
+//   render: function() {
+//     return (
+//       <div>
+//         <IndexLink activeClassName='active' to='/'>Home</IndexLink>&nbsp;
+//         <IndexLink activeClassName='active' to='/filters'>Filters</IndexLink>&nbsp;
+//         <IndexLink activeClassName='active' to='/search'>Search</IndexLink>&nbsp;
+//         <IndexLink activeClassName='active' to='/about'>About</IndexLink>
+//       </div>
+//     );
+//   }
+// });
+
+// var SideBar = React.createClass({
+//   render: function() {
+//     var sidebarClass = this.props.isOpen ? 'sidebar open' : 'sidebar';
+//     return (
+//       <div className={sidebarClass}>
+//         <div>Contents</div>
+//       </div>
+//     );
+//   }
+// });

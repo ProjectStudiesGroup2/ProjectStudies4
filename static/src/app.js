@@ -1,11 +1,18 @@
-import React, { Component } from 'react'
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory, DefaultRoute, IndexLink } from 'react-router'
+import React from 'react'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import Container from './container'
 import Home from './home'
-import Nav from './navigation' 
 import Catalog from './catalog'
+import Filters from './filters'
+import Search from './search'
+import About from './about'
 
-class App extends Component {
+const NotFound = () => <h1>404.. This page is not found!</h1>
+
+const Instagram = () => <h3>Instagram Feed</h3>
+const TwitterFeed = () => <h3>Twitter Feed</h3>
+
+class App extends React.Component {
   render () {
     return (
       <Router history={hashHistory}>
@@ -15,6 +22,8 @@ class App extends Component {
             <IndexRoute component={TwitterFeed} />
             <Route path='instagram' component={Instagram} />
           </Route>
+          <Route path='/filters' component={Filters} />
+          <Route path='/search' component={Search} />
           <Route path='/about' component={About} />
           <Route path='*' component={NotFound} />
         </Route>
@@ -22,12 +31,5 @@ class App extends Component {
     )
   }
 }
-
-const Instagram = () => <h3>Instagram Feed</h3>
-const TwitterFeed = () => <h3>Twitter Feed</h3>
-
-const About = () => <h3>Welcome to the About Page</h3>
-
-const NotFound = () => <h1>404.. This page is not found!</h1>
 
 export default App
