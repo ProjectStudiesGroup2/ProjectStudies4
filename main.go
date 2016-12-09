@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"log"
 	"net/http"
 	"os"
-	"sync"
-
-	"github.com/ant0ine/go-json-rest/rest"
 )
 
 func main() {
@@ -16,19 +15,35 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	products := Products{
-		Store: map[string]*Product{},
-	}
+	i := Impl{}
+	i.InitDB()
+	i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 
 	router, err := rest.MakeRouter(
-		rest.Get("/products", products.GetAllProducts),
-		rest.Post("/products", products.PostProduct),
-		rest.Get("/products/:id", products.GetProduct),
-		rest.Put("/products/:id", products.PutProduct),
-		rest.Delete("/products/:id", products.DeleteProduct),
+		rest.Get("/categories", i.GetAllCategories),
+		rest.Post("/categories", i.PostCategory),
+		// rest.Get("/categories/:cat_id", i.GetTypesInCategory),
+		rest.Put("/categories/:cat_id", i.PutCategory),
+		rest.Post("/categories/:cat_id", i.PostTypeInCategory),
+		rest.Delete("/categories/:cat_id", i.DeleteCategory),
+
+		// rest.Get("/types/:type_id", i.GetProductsInType),
+		rest.Put("/types/:type_id", i.PutType),
+		// rest.Post("/types/:type_id", i.PostProductInType),
+		rest.Delete("/types/:type_id", i.DeleteType),
+
+		rest.Get("/brands", i.GetAllBrands),
+		rest.Post("/brands", i.PostBrand),
+		rest.Get("/brands/:brand_id", i.GetBrand),
+		rest.Put("/brands/:brand_id", i.PutBrand),
+		rest.Delete("/brands/:brand_id", i.DeleteBrand),
+
+		rest.Get("/products/:product_id", i.GetBrand),
+		rest.Put("/products/:product_id", i.PutBrand),
+		rest.Delete("/products/:product_id", i.DeleteBrand),
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -42,87 +57,93 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
-type Product struct {
-	Id    string
-	Name  string
-	Price float64
-	Desc  string
-	Stock int
+type Impl struct {
+	DB *gorm.DB
 }
 
-type Products struct {
-	sync.RWMutex
-	Store map[string]*Product
-}
-
-func (p *Products) GetAllProducts(w rest.ResponseWriter, r *rest.Request) {
-	p.RLock()
-	products := make([]Product, len(p.Store))
-	i := 0
-	for _, product := range p.Store {
-		products[i] = *product
-		i++
-	}
-	p.RUnlock()
-	w.WriteJson(&products)
-}
-
-func (p *Products) GetProduct(w rest.ResponseWriter, r *rest.Request) {
-	id := r.PathParam("id")
-	p.RLock()
-	var product *Product
-	if p.Store[id] != nil {
-		product = &Product{}
-		*product = *p.Store[id]
-	}
-	p.RUnlock()
-	if product == nil {
-		rest.NotFound(w, r)
-		return
-	}
-	w.WriteJson(product)
-}
-
-func (p *Products) PostProduct(w rest.ResponseWriter, r *rest.Request) {
-	product := Product{}
-	err := r.DecodeJsonPayload(&product)
+func (i *Impl) InitDB() {
+	var err error
+	i.DB, err = gorm.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		log.Fatalf("Got error when connect database: %v", err)
 	}
-	p.Lock()
-	id := fmt.Sprintf("%d", len(p.Store)) // stupid
-	product.Id = id
-	p.Store[id] = &product
-	p.Unlock()
-	w.WriteJson(&product)
+	i.DB.LogMode(true)
 }
 
-func (p *Products) PutProduct(w rest.ResponseWriter, r *rest.Request) {
-	id := r.PathParam("id")
-	p.Lock()
-	if p.Store[id] == nil {
-		rest.NotFound(w, r)
-		p.Unlock()
-		return
+func (i *Impl) InitSchema() {
+	if i.DB.HasTable(&ShippingAddress{}) {
+		i.DB.DropTable(&ShippingAddress{})
 	}
-	product := Product{}
-	err := r.DecodeJsonPayload(&product)
-	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		p.Unlock()
-		return
+	if i.DB.HasTable(&Rewiew{}) {
+		i.DB.DropTable(&Rewiew{})
 	}
-	product.Id = id
-	p.Store[id] = &product
-	p.Unlock()
-	w.WriteJson(&product)
-}
+	if i.DB.HasTable(&IsInOrder{}) {
+		i.DB.DropTable(&IsInOrder{})
+	}
+	if i.DB.HasTable(&Order{}) {
+		i.DB.DropTable(&Order{})
+	}
+	if i.DB.HasTable(&IsInCart{}) {
+		i.DB.DropTable(&IsInCart{})
+	}
+	if i.DB.HasTable(&User{}) {
+		i.DB.DropTable(&User{})
+	}
+	if i.DB.HasTable(&Product{}) {
+		i.DB.DropTable(&Product{})
+	}
+	if i.DB.HasTable(&Type{}) {
+		i.DB.DropTable(&Type{})
+	}
+	if i.DB.HasTable(&Features{}) {
+		i.DB.DropTable(&Features{})
+	}
+	if i.DB.HasTable(&Category{}) {
+		i.DB.DropTable(&Category{})
+	}
+	if i.DB.HasTable(&Brand{}) {
+		i.DB.DropTable(&Brand{})
+	}
+	if i.DB.HasTable(&Address{}) {
+		i.DB.DropTable(&Address{})
+	}
 
-func (p *Products) DeleteProduct(w rest.ResponseWriter, r *rest.Request) {
-	id := r.PathParam("id")
-	p.Lock()
-	delete(p.Store, id)
-	p.Unlock()
-	w.WriteHeader(http.StatusOK)
+	i.DB.CreateTable(&Address{})
+
+	i.DB.CreateTable(&Brand{})
+
+	i.DB.CreateTable(&Category{})
+
+	i.DB.CreateTable(&Features{})
+
+	i.DB.CreateTable(&Type{})
+	i.DB.Model(&Type{}).AddForeignKey("category_id", "categories(category_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Product{})
+	i.DB.Model(&Product{}).AddForeignKey("brand_id", "brands(brand_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Product{}).AddForeignKey("type_id", "types(type_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Product{}).AddForeignKey("features_id", "features(features_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&User{})
+	i.DB.Model(&User{}).AddForeignKey("address_id", "addresses(address_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&IsInCart{})
+	i.DB.Model(&IsInCart{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&IsInCart{}).AddForeignKey("product_id", "products(product_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Order{})
+	i.DB.Model(&Order{}).AddForeignKey("user_id", "users(user_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&Order{}).AddForeignKey("address_id", "addresses(address_id)", "RESTRICT", "RESTRICT")
+
+	i.DB.CreateTable(&IsInOrder{})
+	i.DB.Model(&IsInOrder{}).AddForeignKey("product_id", "products(product_id)", "RESTRICT", "RESTRICT")
+	i.DB.Model(&IsInOrder{}).AddForeignKey("order_id", "orders(order_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&Rewiew{})
+	i.DB.Model(&Rewiew{}).AddForeignKey("product_id", "products(product_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&Rewiew{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
+
+	i.DB.CreateTable(&ShippingAddress{})
+	i.DB.Model(&ShippingAddress{}).AddForeignKey("address_id", "addresses(address_id)", "CASCADE", "CASCADE")
+	i.DB.Model(&ShippingAddress{}).AddForeignKey("user_id", "users(user_id)", "CASCADE", "CASCADE")
 }
