@@ -1,7 +1,10 @@
 html, body {
-  width: 100%;
+  max-width: 100%;
 }
 
+    /**********/
+   /* Header */
+  /**********/
 .activeTab:hover {
     text-decoration: none;
     background: white;
@@ -12,16 +15,55 @@ html, body {
     background: white;
     color:#53acff
 }
+.nav-tabs>li { height: 50px; }
+.nav-tabs>li>a:hover {
+    border-color: white;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: white;    
+    color:#53acff
+}
 
 .bar-style {
     background: #ced7e5; /*#f9932c #4bc8ea*/
     color: black;
+    margin-bottom: 0;
 }
 
-.nav-tabs {
+.nav-tabs a {
     height: 50px;
 }
 
+    /*********************/
+   /* Slider for images */
+  /*********************/
+.slider {
+  width: 100%
+}
+.sliderImg {
+  width: 100%;
+  margin: 0;
+}
+
+.slick-dots {
+  bottom: 15px;
+  color: white;
+  z-index: 1000
+} 
+.slick-dots li button:before {
+  font-size: 12px;
+  background: white;
+  color: white;
+}
+.slick-dots li:hover button:before { opacity: 0.9 }
+.slick-dots li.slick-active button:before {
+  opacity: 0.9;
+  color: white;
+}
+    /***********/
+   /* Sidebar */
+  /***********/
 .sidebar {
   position: absolute;
   top: auto;

@@ -15,7 +15,7 @@ const Nav = () => (
           <nav id="bs-navbar" className="collapse navbar-collapse">          
             <ul className="nav navbar-nav nav-tabs">
               <li>
-                <IndexLink  activeClassName='active' to='/'>Home</IndexLink>&nbsp;
+                <IndexLink className="activeTab" activeClassName='active' to='/'>Home</IndexLink>&nbsp;
               </li>
               <li>
                 <IndexLink className="activeTab" activeClassName='active' to='/catalog'>Catalog</IndexLink>&nbsp;
