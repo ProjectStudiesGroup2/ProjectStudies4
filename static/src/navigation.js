@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link, IndexLink } from 'react-router'
-import App from './app'
+import { IndexLink } from 'react-router'
 
 var Nav = React.createClass ({
   render: function() {

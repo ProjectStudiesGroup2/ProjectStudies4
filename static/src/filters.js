@@ -30,9 +30,9 @@ var SideBar = React.createClass({
 
 var Content = React.createClass({
   render: function() {
-    var contentClass = this.props.isOpen ? 'content open' : 'content';
+    // var contentClass = this.props.isOpen ? 'content open' : 'content';
     return (
-      	<a href="javascript:;" onClick={this.props.onClick}>Click Me!</a>
+      <button className='button button-red' onClick={this.props.onClick}>Filters</button>
     );
   }
 });

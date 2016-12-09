@@ -1,11 +1,12 @@
 import React from 'react'
-import { Router, Route, Link, IndexRoute, hashHistory, IndexLink } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import Filters from './filters'
 import Home from './home'
 import Search from './search'
 import About from './about'
 import Container from './container'
-import Nav from './navigation'
+
+const NotFound = () => <h1>404.. This page is not found!</h1>
 
 class App extends React.Component {
   render () {
@@ -22,7 +23,5 @@ class App extends React.Component {
     )
   }
 }
-
-const NotFound = () => <h1>404.. This page is not found!</h1>
 
 export default App
