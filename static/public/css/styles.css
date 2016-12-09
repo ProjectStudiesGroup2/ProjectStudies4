@@ -1,3 +1,13 @@
-.active {
-   color:#53acff
+.active, .active:active, .active:hover { 
+    text-decoration: none;
+    color:#53acff 
+}
+
+.bar-style {
+    background: #ced7e5; /*#f9932c #4bc8ea*/
+    color: black;
+}
+
+.nav-tabs {
+    height: 50px;
 }
