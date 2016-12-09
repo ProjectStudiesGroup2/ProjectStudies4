@@ -2,9 +2,15 @@ html, body {
   width: 100%;
 }
 
-.active, .active:active, .active:hover { 
+.activeTab:hover {
     text-decoration: none;
-    color:#53acff 
+    background: white;
+    color:#53acff
+}
+.active { 
+    text-decoration: none;
+    background: white;
+    color:#53acff
 }
 
 .bar-style {

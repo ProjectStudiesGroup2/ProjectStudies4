@@ -15,19 +15,19 @@ const Nav = () => (
           <nav id="bs-navbar" className="collapse navbar-collapse">          
             <ul className="nav navbar-nav nav-tabs">
               <li>
-                <IndexLink className="nav-tab" activeClassName='active' to='/'>Home</IndexLink>&nbsp;
+                <IndexLink  activeClassName='active' to='/'>Home</IndexLink>&nbsp;
               </li>
               <li>
-                <IndexLink className="nav-tab" activeClassName='active' to='/catalog'>Catalog</IndexLink>&nbsp;
+                <IndexLink className="activeTab" activeClassName='active' to='/catalog'>Catalog</IndexLink>&nbsp;
               </li>
               <li>
-                <IndexLink className="nav-tab" activeClassName='active' to='/about'>About</IndexLink>
+                <IndexLink className="activeTab" activeClassName='active' to='/about'>About</IndexLink>
               </li>
               <li>
-                <IndexLink className="nav-tab" activeClassName='active' to='/filters'>Filters*</IndexLink>&nbsp;
+                <IndexLink className="activeTab" activeClassName='active' to='/filters'>Filters*</IndexLink>&nbsp;
               </li>
               <li>
-                <IndexLink className="nav-tab" activeClassName='active' to='/search'>Search</IndexLink>&nbsp;
+                <IndexLink className="activeTab" activeClassName='active' to='/search'>Search</IndexLink>&nbsp;
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right icon-pad">
