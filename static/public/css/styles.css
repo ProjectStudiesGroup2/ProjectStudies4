@@ -1,0 +1,30 @@
+html, body {
+  width: 100%;
+}
+
+.active, .active:active, .active:hover { 
+    text-decoration: none;
+    color:#53acff 
+}
+
+.bar-style {
+    background: #ced7e5; /*#f9932c #4bc8ea*/
+    color: black;
+}
+
+.nav-tabs {
+    height: 50px;
+}
+
+.sidebar {
+  position: absolute;
+  top: auto;
+  left: -300px;
+  height: 80%;
+  width: 300px;
+  transition: left .3s ease-in-out;
+  background-color: #4d7cf7;
+}
+.sidebar.open {
+  left: 0;
+}
