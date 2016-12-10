@@ -7,7 +7,11 @@ import Filters from './filters'
 import Search from './search'
 import About from './about'
 
-const NotFound = () => <h1>404.. This page is not found!</h1>
+const NotFound = () => (
+  <div className="container-fluid">
+    <h1>404.. This page is not found!</h1>
+  </div>
+)
 
 const Instagram = () => <h3>Instagram Feed</h3>
 const TwitterFeed = () => <h3>Twitter Feed</h3>

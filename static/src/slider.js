@@ -7,7 +7,7 @@ var SimpleSlider = React.createClass({
       arrows: false,
       dots: true,
       infinite: true,
-      speed: 1200,
+      speed: 1500,
       autoplay: true,
       fade: true,
       draggable: false,
@@ -16,10 +16,10 @@ var SimpleSlider = React.createClass({
     };
     return (
       <Slider {...settings} className="slider">
-        <div><img className="sliderImg" src={'img/car&plane.jpg'} /></div>
-        <div><img className="sliderImg" src={'img/car&plane2.jpg'} /></div>
-        <div><img className="sliderImg" src={'img/car&plane.jpg'} /></div>
-        <div><img className="sliderImg" src={'img/car&plane.jpg'} /></div>
+        <div><img alt="car$plane" className="sliderImg" src={'img/car&plane.jpg'} /></div>
+        <div><img alt="car$plane" className="sliderImg" src={'img/car&plane2.jpg'} /></div>
+        <div><img alt="car$plane" className="sliderImg" src={'img/car&plane.jpg'} /></div>
+        <div><img alt="car$plane" className="sliderImg" src={'img/car&plane2.jpg'} /></div>
       </Slider>
     );
   }

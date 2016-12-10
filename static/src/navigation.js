@@ -30,9 +30,10 @@ const Nav = () => (
                 <IndexLink className="activeTab" activeClassName='active' to='/search'>Search</IndexLink>&nbsp;
               </li>
             </ul>
-            <ul className="nav navbar-nav navbar-right icon-pad">
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
+            <ul className="nav navbar-nav navbar-right">
+              <li><IndexLink to='/login'>Sign in</IndexLink></li>
+              <li><IndexLink to='/register'>Register</IndexLink></li>
+              <li><IndexLink to='/cart'>Cart</IndexLink></li>
             </ul>
           </nav>
         </div>
@@ -41,27 +42,3 @@ const Nav = () => (
 )
 
 export default Nav
-
-// var Nav = React.createClass ({
-//   render: function() {
-//     return (
-//       <div>
-//         <IndexLink activeClassName='active' to='/'>Home</IndexLink>&nbsp;
-//         <IndexLink activeClassName='active' to='/filters'>Filters</IndexLink>&nbsp;
-//         <IndexLink activeClassName='active' to='/search'>Search</IndexLink>&nbsp;
-//         <IndexLink activeClassName='active' to='/about'>About</IndexLink>
-//       </div>
-//     );
-//   }
-// });
-
-// var SideBar = React.createClass({
-//   render: function() {
-//     var sidebarClass = this.props.isOpen ? 'sidebar open' : 'sidebar';
-//     return (
-//       <div className={sidebarClass}>
-//         <div>Contents</div>
-//       </div>
-//     );
-//   }
-// });
