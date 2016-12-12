@@ -13,26 +13,9 @@ func (i *Impl) GetProduct(w rest.ResponseWriter, r *rest.Request) {
 		return
 	}
 
-	brand := Brand{}
-	if i.DB.First(&brand, product.BrandID).Error != nil {
+	if product.FillProduct(i) != nil {
 		rest.NotFound(w, r)
-		return
 	}
-	product.BrandName = brand.BrandName
-
-	features := Features{}
-	if i.DB.First(&features, product.FeaturesID).Error != nil {
-		rest.NotFound(w, r)
-		return
-	}
-	product.FeaturesDatas = features.FeaturesDatas
-
-	aType := Type{}
-	if i.DB.First(&aType, product.TypeID).Error != nil {
-		rest.NotFound(w, r)
-		return
-	}
-	product.TypeName = aType.TypeName
 
 	w.WriteJson(&product)
 }
@@ -96,4 +79,26 @@ func (i *Impl) DeleteProduct(w rest.ResponseWriter, r *rest.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+}
+
+func (p *Product) FillProduct(i *Impl) error {
+	brand := Brand{}
+	if err := i.DB.First(&brand, p.BrandID).Error; err != nil {
+		return err
+	}
+	p.BrandName = brand.BrandName
+
+	features := Features{}
+	if err := i.DB.First(&features, p.FeaturesID).Error; err != nil {
+		return err
+	}
+	p.FeaturesDatas = features.FeaturesDatas
+
+	aType := Type{}
+	if err := i.DB.First(&aType, p.TypeID).Error; err != nil {
+		return err
+	}
+	p.TypeName = aType.TypeName
+
+	return nil
 }

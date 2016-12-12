@@ -31,6 +31,26 @@ func (i *Impl) PostTypeInCategory(w rest.ResponseWriter, r *rest.Request) {
 	w.WriteJson(&aType)
 }
 
+func (i *Impl) GetProductsInType(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("type_id")
+	aType := Type{}
+	if i.DB.First(&aType, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+
+	products := []Product{}
+	i.DB.Raw("SELECT * FROM products WHERE type_id = ?", aType.TypeID).Scan(&products)
+
+	for idx := range products {
+		if products[idx].FillProduct(i) != nil {
+			rest.NotFound(w, r)
+		}
+	}
+
+	w.WriteJson(&products)
+}
+
 func (i *Impl) PutType(w rest.ResponseWriter, r *rest.Request) {
 	id := r.PathParam("brand_id")
 	aType := Type{}

@@ -30,7 +30,7 @@ func main() {
 		rest.Post("/categories/:cat_id", i.PostTypeInCategory),
 		rest.Delete("/categories/:cat_id", i.DeleteCategory),
 
-		// rest.Get("/types/:type_id", i.GetProductsInType),
+		rest.Get("/types/:type_id", i.GetProductsInType),
 		rest.Put("/types/:type_id", i.PutType),
 		// rest.Post("/types/:type_id", i.PostProductInType),
 		rest.Delete("/types/:type_id", i.DeleteType),
