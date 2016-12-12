@@ -14,7 +14,7 @@ var ProdSlider = React.createClass({
       slidesToScroll: 3
     };
     return (
-    <div className="container">
+    <div className="container product_slider_cont">
       <Slider {...settings2} className="product_slider">
         <div>
             <IndexLink to='/product/:id'><div id="product_box">

@@ -5,7 +5,7 @@ import ProdSlider from './productSlider'
 const Home = () => (
     <div id="wrapper"> 
         <div className="content">
-            <SimpleSlider />           
+            <SimpleSlider />         
             <div className="container">            
                 <h3>Most viewed </h3>
             </div> 
