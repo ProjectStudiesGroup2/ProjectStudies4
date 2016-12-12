@@ -14,7 +14,7 @@ type Brand struct {
 type Category struct {
 	CategoryID   uint   `gorm:"primary_key" json:"cat_id"`
 	CategoryName string `gorm:"not null;unique" json:"cat_name"`
-	// Types        []Type `json:"-"`
+	Types        []Type `json:"-"`
 }
 
 type Features struct {
@@ -46,14 +46,16 @@ type Order struct {
 }
 
 type Product struct {
-	ProductID   uint    `gorm:"primary_key" json:"product_id"`
-	ProductName string  `gorm:"not null;unique" json:"product_name"`
-	Price       float64 ``
-	Descr       string  ``
-	Stock       int     ``
-	BrandID     uint    ``
-	TypeID      uint    ``
-	FeaturesID  uint    ``
+	ProductID     uint    `gorm:"primary_key" json:"product_id"`
+	ProductName   string  `gorm:"not null;unique" json:"product_name"`
+	Price         float64 `json:"price"`
+	Description   string  `json:"desc"`
+	Stock         int     `json:"stock"`
+	BrandID       uint    `json:"-"`
+	BrandName     string  `gorm:"-" json:"brand"`
+	TypeID        uint    `json:"-"`
+	FeaturesID    uint    `json:"-"`
+	FeaturesDatas string  `gorm:"-" json:"features"`
 }
 
 type Rewiew struct {

@@ -1,26 +1,40 @@
 package main
 
-// import (
-// 	"github.com/ant0ine/go-json-rest/rest"
-// 	"net/http"
-// )
-//
+import (
+	"github.com/ant0ine/go-json-rest/rest"
+)
+
 // func (i *Impl) GetAllProducts(w rest.ResponseWriter, r *rest.Request) {
 // 	products := []Product{}
 // 	i.DB.Find(&products)
 // 	w.WriteJson(&products)
 // }
-//
-// func (i *Impl) GetProduct(w rest.ResponseWriter, r *rest.Request) {
-// 	id := r.PathParam("id")
-// 	product := Product{}
-// 	if i.DB.First(&product, id).Error != nil {
-// 		rest.NotFound(w, r)
-// 		return
-// 	}
-// 	w.WriteJson(&product)
-// }
-//
+
+func (i *Impl) GetProduct(w rest.ResponseWriter, r *rest.Request) {
+	id := r.PathParam("id")
+	product := Product{}
+	if i.DB.First(&product, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+
+	brand := Brand{}
+	if i.DB.First(&brand, product.BrandID).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+	product.BrandName = brand.BrandName
+
+	features := Features{}
+	if i.DB.First(&features, id).Error != nil {
+		rest.NotFound(w, r)
+		return
+	}
+	product.FeaturesDatas = features.FeaturesDatas
+
+	w.WriteJson(&product)
+}
+
 // func (i *Impl) PostProduct(w rest.ResponseWriter, r *rest.Request) {
 // 	product := Product{}
 //

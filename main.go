@@ -25,7 +25,7 @@ func main() {
 	router, err := rest.MakeRouter(
 		rest.Get("/categories", i.GetAllCategories),
 		rest.Post("/categories", i.PostCategory),
-		// rest.Get("/categories/:cat_id", i.GetTypesInCategory),
+		rest.Get("/categories/:cat_id", i.GetTypesInCategory),
 		rest.Put("/categories/:cat_id", i.PutCategory),
 		rest.Post("/categories/:cat_id", i.PostTypeInCategory),
 		rest.Delete("/categories/:cat_id", i.DeleteCategory),
@@ -41,9 +41,9 @@ func main() {
 		rest.Put("/brands/:brand_id", i.PutBrand),
 		rest.Delete("/brands/:brand_id", i.DeleteBrand),
 
-		rest.Get("/products/:product_id", i.GetBrand),
-		rest.Put("/products/:product_id", i.PutBrand),
-		rest.Delete("/products/:product_id", i.DeleteBrand),
+		rest.Get("/products/:product_id", i.GetProduct),
+		// rest.Put("/products/:product_id", i.PutProduct),
+		// rest.Delete("/products/:product_id", i.DeleteProduct),
 	)
 	if err != nil {
 		log.Fatal(err)

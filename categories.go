@@ -38,8 +38,8 @@ func (i *Impl) GetTypesInCategory(w rest.ResponseWriter, r *rest.Request) {
 	}
 
 	types := []Type{}
-	i.DB.Model(&category).Related(&types)
-	
+	i.DB.Raw("SELECT * FROM types WHERE category_id = ?", category.CategoryID).Scan(&types)
+
 	w.WriteJson(&types)
 }
 
