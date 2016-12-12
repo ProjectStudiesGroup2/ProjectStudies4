@@ -17,7 +17,7 @@ func main() {
 
 	i := Impl{}
 	i.InitDB()
-	i.InitSchema()
+	// i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
@@ -43,7 +43,7 @@ func main() {
 
 		rest.Get("/products/:product_id", i.GetProduct),
 		// rest.Put("/products/:product_id", i.PutProduct),
-		// rest.Delete("/products/:product_id", i.DeleteProduct),
+		rest.Delete("/products/:product_id", i.DeleteProduct),
 	)
 	if err != nil {
 		log.Fatal(err)
