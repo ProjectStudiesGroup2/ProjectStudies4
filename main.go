@@ -17,7 +17,7 @@ func main() {
 
 	i := Impl{}
 	i.InitDB()
-	i.InitSchema()
+	// i.InitSchema()
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
@@ -30,9 +30,9 @@ func main() {
 		rest.Post("/categories/:cat_id", i.PostTypeInCategory),
 		rest.Delete("/categories/:cat_id", i.DeleteCategory),
 
-		// rest.Get("/types/:type_id", i.GetProductsInType),
+		rest.Get("/types/:type_id", i.GetProductsInType),
 		rest.Put("/types/:type_id", i.PutType),
-		// rest.Post("/types/:type_id", i.PostProductInType),
+		rest.Post("/types/:type_id", i.PostProductInType),
 		rest.Delete("/types/:type_id", i.DeleteType),
 
 		rest.Get("/brands", i.GetAllBrands),
@@ -42,8 +42,8 @@ func main() {
 		rest.Delete("/brands/:brand_id", i.DeleteBrand),
 
 		rest.Get("/products/:product_id", i.GetProduct),
-		// rest.Put("/products/:product_id", i.PutProduct),
-		// rest.Delete("/products/:product_id", i.DeleteProduct),
+		rest.Put("/products/:product_id", i.PutProduct),
+		rest.Delete("/products/:product_id", i.DeleteProduct),
 	)
 	if err != nil {
 		log.Fatal(err)
