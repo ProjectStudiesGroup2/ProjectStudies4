@@ -1,11 +1,17 @@
 import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import ReactStormpath, { HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath'
 import Container from './container'
+
 import Home from './home'
 import Catalog from './catalog'
 import Filters from './filters'
 import Search from './search'
 import About from './about'
+import LoginPage from './login'
+import RegistrationPage from './register'
+// import ProfilePage from './profile'
+import Product from './productPage'
 
 const NotFound = () => (
   <div className="container-fluid">
@@ -29,6 +35,10 @@ class App extends React.Component {
           <Route path='/filters' component={Filters} />
           <Route path='/search' component={Search} />
           <Route path='/about' component={About} />
+          <Route path='/login' component={LoginPage} />
+          <Route path='/register' component={RegistrationPage} />
+          {/*<Route path='/profile' component={ProfilePage} />*/}
+          <Route path='/product' component={Product} />
           <Route path='*' component={NotFound} />
         </Route>
       </Router>
