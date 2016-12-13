@@ -28,35 +28,35 @@ var ProdSlider = React.createClass({
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/mercg65s.png" /></div>
                 <div id="product_header">Mercedes-AMG G65</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>    
+            </div></IndexLink>
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/mercg65s.png" /></div>
                 <div id="product_header">Mercedes-AMG G65</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>   
+            </div></IndexLink>
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
                 <div id="product_header">Passenger Drone EHANG184</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>  
+            </div></IndexLink>
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
                 <div id="product_header">Passenger Drone EHANG184</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>    
+            </div></IndexLink>
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
                 <div id="product_header">Passenger Drone EHANG184</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>    
+            </div></IndexLink>
         </div>
       </Slider>
       <br />
@@ -66,13 +66,6 @@ var ProdSlider = React.createClass({
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/mercg65s.png" /></div>
                 <div id="product_header">Mercedes-AMG G65</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>       
-        </div>
-        <div>
-            <IndexLink to='/product/:id'><div id="product_box">
-                <div id="product_img"><img alt="prod" src="img/product/shortcut/mercg65s.png" /></div>
-                <div id="product_header">Mercedes-AMG G65</div>
-                <div id="product_price">100000$</div>
             </div></IndexLink>
         </div>
         <div>
@@ -84,28 +77,35 @@ var ProdSlider = React.createClass({
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
-                <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
-                <div id="product_header">Passenger Drone EHANG184</div>
+                <div id="product_img"><img alt="prod" src="img/product/shortcut/mercg65s.png" /></div>
+                <div id="product_header">Mercedes-AMG G65</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>  
+            </div></IndexLink>
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
                 <div id="product_header">Passenger Drone EHANG184</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>  
+            </div></IndexLink>
         </div>
         <div>
             <IndexLink to='/product/:id'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
                 <div id="product_header">Passenger Drone EHANG184</div>
                 <div id="product_price">100000$</div>
-            </div></IndexLink>  
+            </div></IndexLink>
+        </div>
+        <div>
+            <IndexLink to='/product/:id'><div id="product_box">
+                <div id="product_img"><img alt="prod" src="img/product/shortcut/drone.png" /></div>
+                <div id="product_header">Passenger Drone EHANG184</div>
+                <div id="product_price">100000$</div>
+            </div></IndexLink>
         </div>
       </Slider>
       <br />
-    </div>    
+    </div>
     );
   }
 });
