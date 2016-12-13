@@ -42,7 +42,7 @@ func main() {
 		rest.Delete("/brands/:brand_id", i.DeleteBrand),
 
 		rest.Get("/products/:product_id", i.GetProduct),
-		// rest.Put("/products/:product_id", i.PutProduct),
+		rest.Put("/products/:product_id", i.PutProduct),
 		rest.Delete("/products/:product_id", i.DeleteProduct),
 	)
 	if err != nil {
