@@ -32,7 +32,7 @@ func main() {
 
 		rest.Get("/types/:type_id", i.GetProductsInType),
 		rest.Put("/types/:type_id", i.PutType),
-		// rest.Post("/types/:type_id", i.PostProductInType),
+		rest.Post("/types/:type_id", i.PostProductInType),
 		rest.Delete("/types/:type_id", i.DeleteType),
 
 		rest.Get("/brands", i.GetAllBrands),
