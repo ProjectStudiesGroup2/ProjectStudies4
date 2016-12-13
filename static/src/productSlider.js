@@ -17,7 +17,7 @@ var ProdSlider = React.createClass({
     <div className="container product_slider_cont">
       <Slider {...settings2} className="product_slider">
         <div>
-            <IndexLink to='/product/:id'><div id="product_box">
+            <IndexLink to='/product'><div id="product_box">
                 <div id="product_img"><img alt="prod" src="img/product/shortcut/mercg65s.png" /></div>
                 <div id="product_header">Mercedes-AMG G65</div>
                 <div id="product_price">100000$</div>
