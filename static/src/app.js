@@ -2,7 +2,11 @@ import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import ReactStormpath, { HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath'
 import Container from './container'
+<<<<<<< HEAD
 import axios from 'axios'
+=======
+
+>>>>>>> e8534f8f0c98a0e4374fd46d807d3574d48d5e42
 import Home from './home'
 import Catalog from './catalog'
 import Filters from './filters'
@@ -11,6 +15,7 @@ import About from './about'
 import LoginPage from './login'
 import RegistrationPage from './register'
 // import ProfilePage from './profile'
+import Product from './productPage'
 
 var instance = axios.create({
   baseURL: 'https://g2p4.herokuapp.com/api',
@@ -46,6 +51,7 @@ class App extends React.Component {
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegistrationPage} />
           {/*<Route path='/profile' component={ProfilePage} />*/}
+          <Route path='/product' component={Product} />
           <Route path='*' component={NotFound} />
         </Route>
       </Router>
