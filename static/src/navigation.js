@@ -8,10 +8,10 @@ const Nav = () => (
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed glyphicon glyphicon-align-justify" data-toggle="collapse" data-target="#bs-navbar" aria-expanded="false">
               <span className="sr-only">Toggle navigation</span>
-            </button>					
+            </button>
             <a href="#" className="navbar-brand logo">Web Store</a>
           </div>
-          <nav id="bs-navbar" className="collapse navbar-collapse">          
+          <nav id="bs-navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li>
                 <IndexLink className="activeTab" activeClassName='active' to='/'>Home</IndexLink>

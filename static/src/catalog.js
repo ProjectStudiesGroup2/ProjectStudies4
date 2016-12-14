@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const Catalog = (props) => 
+const Catalog = (props) =>
 <div className="container-fluid">
   <Link to='/catalog'>Twitter Feed</Link>&nbsp;
   <Link to='/catalog/instagram'>Instagram Feed</Link>

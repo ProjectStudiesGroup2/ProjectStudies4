@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactStormpath, { HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath'
+import ReactStormpath from 'react-stormpath'
 import App from './app'
 
 ReactStormpath.init();
