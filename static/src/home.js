@@ -6,8 +6,8 @@ const Home = () => (
     <div id="wrapper"> 
         <div className="content">
             <SimpleSlider />         
-            <div className="container">            
-                <h3>Most viewed </h3>
+            <div className="container margin-top">                        
+                <h4>Most viewed </h4>
             </div> 
             <ProdSlider /> 
         </div>        
