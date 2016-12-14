@@ -54,6 +54,7 @@ type Product struct {
 	BrandID       uint    `json:"-"`
 	BrandName     string  `gorm:"-" json:"brand"`
 	TypeID        uint    `json:"-"`
+	TypeName      string  `gorm:"-" json:"type"`
 	FeaturesID    uint    `json:"-"`
 	FeaturesDatas string  `gorm:"-" json:"features"`
 }
