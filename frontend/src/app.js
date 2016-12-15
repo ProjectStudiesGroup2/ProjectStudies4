@@ -12,10 +12,34 @@ import RegistrationPage from './register'
 // import ProfilePage from './profile'
 import Product from './productPage'
 
-var instance = axios.create({
-  baseURL: 'https://g2p4.herokuapp.com/api',
-  headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
-});
+// class BaseData extends React.Component {
+//   constructor(props) {
+//     super(props);
+//
+//     this.state = {
+//       id: '',
+//       name: []
+//     };
+//   }
+
+React.createClass({
+  getInitialState: function() {
+    return {
+      name: '',
+    }
+  },
+
+  componentDidMount(){
+    var instance = axios.create({
+      baseURL: 'https://g2p4.herokuapp.com/api',
+      headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
+    });
+},
+})
+// var instance = axios.create({
+//   baseURL: 'https://g2p4.herokuapp.com/api',
+//   headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
+// });
 
 const NotFound = () => (
   <div className="container-fluid">

@@ -5,9 +5,8 @@ import instance from './app'
 
 instance.get('/categories')
 .then(function (response){
-  console.log(response)
-  data={response.data}
-});
+  this.setState({name: response.data});
+}.bind(this));
 
 const Home = () => (
     <div id="wrapper">
@@ -22,7 +21,7 @@ const Home = () => (
             <div className="container">
                 <div className="row">
                     <div className="col-sm-7">
-                        <p>{data}}</p>
+                        <p>{this.state.name}</p>
                     </div>
                 </div>
             </div>
