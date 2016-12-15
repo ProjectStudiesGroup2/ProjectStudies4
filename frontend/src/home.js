@@ -6,6 +6,7 @@ import instance from './app'
 instance.get('/categories')
 .then(function (response){
   console.log(response)
+  data={response.data}
 });
 
 const Home = () => (
@@ -21,7 +22,7 @@ const Home = () => (
             <div className="container">
                 <div className="row">
                     <div className="col-sm-7">
-                        <p>Something here</p>
+                        <p>{data}}</p>
                     </div>
                 </div>
             </div>
