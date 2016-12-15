@@ -3,11 +3,6 @@ import SimpleSlider from './slider'
 import ProdSlider from './productSlider'
 import instance from './app'
 
-instance.get('/categories')
-.then(function (response){
-  this.setState({name: response.data});
-}.bind(this));
-
 const Home = () => (
     <div id="wrapper">
         <div className="content">
