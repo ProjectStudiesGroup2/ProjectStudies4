@@ -50,6 +50,10 @@ render: function() {
 //   baseURL: 'https://g2p4.herokuapp.com/api',
 //   headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
 // });
+// instance.get('/categories')
+// .then(function (response){
+//   console.log(response)
+// });
 
 const NotFound = () => (
   <div className="container-fluid">
