@@ -1,9 +1,9 @@
 package main
 
 type Address struct {
-	AddressID uint   `gorm:"primary_key"`
-	Recip     string ``
-	Street    string ``
+	AddressID uint   `gorm:"primary_key" json:"address_id"`
+	Recip     string `json:"recip"`
+	Street    string `json:"street"`
 }
 
 type Brand struct {
@@ -67,8 +67,10 @@ type Rewiew struct {
 }
 
 type ShippingAddress struct {
-	AddressID uint `gorm:"primary_key"`
-	UserID    uint `gorm:"primary_key"`
+	AddressID uint   `gorm:"primary_key" json:"address_id"`
+	Recip     string `gorm:"-" json:"recip"`
+	Street    string `gorm:"-" json:"street"`
+	UserID    uint   `gorm:"primary_key" json:"-"`
 }
 
 type Type struct {
@@ -78,10 +80,12 @@ type Type struct {
 }
 
 type User struct {
-	UserID        uint   `gorm:"primary_key"`
-	Username      string ``
-	Email         string `gorm:"not null;unique"`
-	AddressID     uint   ``
-	PaymentMethod string ``
-	Settings      string ``
+	UserID         uint   `gorm:"primary_key" json:"user_id"`
+	Username       string `json:"username"`
+	Email          string `gorm:"not null;unique" json:"email"`
+	AddressID      uint   `json:"-"`
+	RealName       string `gorm:"-" json:"real_name"`
+	BillingAddress string `gorm:"-" json:"billing_address"`
+	PaymentMethod  string `json:"payment_method"`
+	Settings       string `json:"settings"`
 }
