@@ -52,7 +52,7 @@ func main() {
 
 	http.Handle("/api/", http.StripPrefix("/api", api.MakeHandler()))
 
-	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./static"))))
+	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./frontend/public"))))
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
