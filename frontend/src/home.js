@@ -1,7 +1,6 @@
 import React from 'react'
 import SimpleSlider from './slider'
 import ProdSlider from './productSlider'
-import instance from './app'
 
 const Home = () => (
     <div id="wrapper">

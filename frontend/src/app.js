@@ -12,40 +12,54 @@ import RegistrationPage from './register'
 // import ProfilePage from './profile'
 import Product from './productPage'
 
-// class BaseData extends React.Component {
-//   constructor(props) {
-//     super(props);
-//
-//     this.state = {
-//       id: '',
-//       name: []
-//     };
-//   }
-
-React.createClass({
+var TestComponent = React.createClass({
   getInitialState: function() {
-    return {
-      name: '',
-    }
+    return { name: [] }
   },
 
-  componentDidMount(){
+  componentDidMount: function() {
     var instance = axios.create({
-      baseURL: 'https://g2p4.herokuapp.com/api',
-      headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
     });
-},
+    instance.get('https://g2p4.herokuapp.com/api/categories').then(function(response) {
+      this.setState({ name: response })
+    }.bind(this));
+  },
 
-instance.get('/categories')
-.then(function (response){
-  this.setState({name: response.data});
-}.bind(this));
-},
-
-render: function() {
-  return <div>{this.state.name}</div>
-}
+  render: function() {
+    return <div>{this.state.name}</div>
+  }
 });
+
+
+// ReactDOM.render(<TestComponent />, document.getElementById('app'));
+
+//*********//
+// React.createClass({
+//   getInitialState: function() {
+//     return {
+//       name: ''
+//     }
+//   },
+//
+//   componentDidMount: function(){
+//     var instance = axios.create({
+//       baseURL: 'https://g2p4.herokuapp.com/api'
+//     });
+//
+//     instance.get('https://g2p4.herokuapp.com/api/categories')
+//     .then(function (response){
+//       this.setState({ name: response.data });
+//     }.bind(this));
+//   },
+//
+//   render: function() {
+//     return (
+//       <div>{this.state.name}</div>
+//     )
+//   }
+// });
+
+//******//
 // var instance = axios.create({
 //   baseURL: 'https://g2p4.herokuapp.com/api',
 //   headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
