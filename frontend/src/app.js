@@ -2,11 +2,7 @@ import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import ReactStormpath, { HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath'
 import Container from './container'
-<<<<<<< HEAD
 import axios from 'axios'
-=======
-
->>>>>>> e8534f8f0c98a0e4374fd46d807d3574d48d5e42
 import Home from './home'
 import Catalog from './catalog'
 import Filters from './filters'
