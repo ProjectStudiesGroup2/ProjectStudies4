@@ -1,6 +1,5 @@
 import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
-import ReactStormpath, { HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath'
 import Container from './container'
 import axios from 'axios'
 import Home from './home'
@@ -16,10 +15,6 @@ import Product from './productPage'
 var instance = axios.create({
   baseURL: 'https://g2p4.herokuapp.com/api',
   headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
-});
-instance.get('/categories')
-.then(function (response){
-  console.log(response)
 });
 
 const NotFound = () => (
