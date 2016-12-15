@@ -1,12 +1,6 @@
 import React from 'react'
 import SimpleSlider from './slider'
 import ProdSlider from './productSlider'
-import instance from './app'
-
-instance.get('/categories')
-.then(function (response){
-  console.log(response)
-});
 
 const Home = () => (
     <div id="wrapper">

@@ -12,35 +12,13 @@ import RegistrationPage from './register'
 // import ProfilePage from './profile'
 import Product from './productPage'
 
-// React.createClass({
-//   getInitialState: function() {
-//     return {
-//       name: '',
-//     }
-//   },
-//
-//   componentDidMount(){
-//     var instance = axios.create({
-//       baseURL: 'https://g2p4.herokuapp.com/api',
-//       headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
-//     });
-// },
-//
-// instance.get('/categories')
-// .then(function (response){
-//   console.log(response)
-//   this.setState({name: response.data});
-// }.bind(this));
-// },
-//
-// render: function() {
-//   return <div>{this.state.name}</div>
-// }
-// });
-
 var instance = axios.create({
   baseURL: 'https://g2p4.herokuapp.com/api',
   headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
+});
+instance.get('/categories')
+.then(function (response){
+  console.log(response)
 });
 
 const NotFound = () => (
