@@ -1,5 +1,6 @@
 import React from 'react'
 import { IndexLink } from 'react-router'
+import LoginPage from './login'
 
 const Nav = () => (
   <div>

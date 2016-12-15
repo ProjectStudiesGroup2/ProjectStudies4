@@ -10,7 +10,6 @@ import Search from './search'
 import About from './about'
 import LoginPage from './login'
 import RegistrationPage from './register'
-// import ProfilePage from './profile'
 import Product from './productPage'
 
 const NotFound = () => (
