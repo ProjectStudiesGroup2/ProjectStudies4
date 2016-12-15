@@ -194,6 +194,10 @@ a.active, a.active:checked {
     /**************/
    /* Login page */
   /**************/
+.form {
+  text-align: left
+}
+
 input[type=text], input[type=password] {
   width: 100%;
   padding: 12px 20px;
@@ -201,7 +205,8 @@ input[type=text], input[type=password] {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  color: black
+  color: black;
+  text-align: center;
 }
 
 .button {

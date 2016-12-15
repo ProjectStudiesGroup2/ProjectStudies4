@@ -1,5 +1,5 @@
-import React from 'react';
-import DocumentTitle from 'react-document-title';
+import React from 'react'
+import DocumentTitle from 'react-document-title'
  
 export default class LoginPage extends React.Component {
   constructor(props) {
@@ -15,20 +15,29 @@ export default class LoginPage extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+    if (document.getElementById('user').value=="admin" && document.getElementById('pass').value=="admin" ||
+        document.getElementById('user').value=="roman" && document.getElementById('pass').value=="12345") {
+      alert('You are loged in! Hello, ' + this.state.value + '!');
+      event.preventDefault();
+    }
+    else if (document.getElementById('user').value=="admin" || document.getElementById('user').value=="roman"){
+      alert('Wrong password!');
+    }
+    else {
+      alert('No such usrname or password!');
+    }
   }
 
   render() {
     return (
-      <DocumentTitle title={`Login`} className="container">
+      <DocumentTitle title={`Login page`} className="container">
         <div className="container">
-          <form onSubmit={this.handleSubmit}>
-            <h3 className="center">
-              Sign in!
-            </h3>
+          <h3 className="center">
+            Sign in!
+          </h3>
+          <form onSubmit={this.handleSubmit} className="form">            
             <label><b>Username</b></label>
-            <input type="text" placeholder="Username" name="uname" id="user" value={this.state.value} onChange={this.handleChange} />
+            <input type="text" placeholder="Username" name="uname" id="user" value={this.state.value} onChange={this.handleChange} /><br />
             <label><b>Password</b></label>
             <input type="password" placeholder="Password" name="psw" id="pass" required />
                 
