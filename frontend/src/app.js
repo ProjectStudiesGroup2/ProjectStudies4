@@ -35,13 +35,13 @@ class App extends React.Component {
       <Router history={hashHistory}>
         <Route path='/' component={Container}>
           <IndexRoute component={Home} />
-          <Route path='/catalog' component={Catalog}>
+          <Route path='/catalog' component={Catalog} />
+          <Route path='/filters' component={Filters} />
+          <Route path='/search' component={Search} />
+          <Route path='/about' component={About}>
             <IndexRoute component={TwitterFeed} />
             <Route path='instagram' component={Instagram} />
           </Route>
-          <Route path='/filters' component={Filters} />
-          <Route path='/search' component={Search} />
-          <Route path='/about' component={About} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegistrationPage} />
           {/*<Route path='/profile' component={ProfilePage} />*/}
