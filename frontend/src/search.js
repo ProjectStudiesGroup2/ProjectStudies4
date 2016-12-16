@@ -19,9 +19,8 @@ var Search = React.createClass ({
     //  }
       return (
          <div className="container-fluid">
+         <br />
             <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search your product" />
-            <ul>
-            </ul>
          </div>
       )
    }
