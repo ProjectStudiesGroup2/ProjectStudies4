@@ -25,9 +25,6 @@ const Nav = () => (
                 <IndexLink className="activeTab" activeClassName='active' to='/about'>About</IndexLink>
               </li>
               <li>
-                <IndexLink className="activeTab" activeClassName='active' to='/filters'>Filters*</IndexLink>
-              </li>
-              <li>
                 <IndexLink className="activeTab" activeClassName='active' to='/search'>Search</IndexLink>
               </li>
             </ul>

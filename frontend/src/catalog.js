@@ -33,7 +33,7 @@ var Catalog = React.createClass({
   render: function() {
     return (
   <div className="container-fluid">
-    <h1>Hello, babe!</h1>
+    <h3>Hello from catalog!</h3>
     <button className='button button-red' onClick={this.props.onClick}>Tab of filters</button>
   </div> )
   }
