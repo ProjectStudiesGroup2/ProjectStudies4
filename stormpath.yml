@@ -1,0 +1,6 @@
+client:
+  apiKey:
+    id: adm
+    secret: adm
+application:
+  href: https://api.stormpath.com/v1/applications/C:/Users/V5/Documents/ProjectStudies4 
